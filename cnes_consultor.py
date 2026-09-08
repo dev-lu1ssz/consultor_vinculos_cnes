@@ -79,25 +79,3 @@ class CnesVinculos:
         primeiro_digito = calcular_digito(cpf[:9], 10)
         segundo_digito = calcular_digito(cpf[:10], 11)
         return int(cpf[9]) == primeiro_digito and int(cpf[10]) == segundo_digito
-        
-
-if __name__ == '__main__':
-    cpf = str(input('Digite o CPF para obter o número CNS: '))
-    validador = CnesVinculos.validar_cpf(cpf)
-    if validador == False:
-        print('CPF inválido. Por favor, insira um CPF válido.')
-        exit()
-    cnes_vinculos = CnesVinculos(cpf)
-    vinculos = cnes_vinculos.vinculos_ativos(cpf)
-
-    if vinculos:
-        competencia = vinculos.get('competencia') or vinculos.get('cmptAtual')
-
-        for vinculo in vinculos.get('vinculos', []):
-            print({
-                'noFant': vinculo.get('noFant'),
-                'competencia': competencia,
-                'dsCbo': vinculo.get('dsCbo')
-            })
-    else:
-        print('Não foi possível obter os vínculos ativos do profissional')
